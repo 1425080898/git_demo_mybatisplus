@@ -5,11 +5,12 @@ import com.lzb.dto.DeptDTO;
 import com.lzb.entity.Dept;
 import com.lzb.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -42,14 +43,34 @@ public class DeptController {
     public DeptDTO selectDeptByDeptId(@RequestParam("deptId") Integer deptId){
         return deptService.selectDeptByDeptId(deptId);
     }
-    //updateDept
     @PutMapping("updateDept")
     public int updateDept(@RequestBody DeptDTO deptDTO){
+        String deptName = Optional.ofNullable(deptDTO).map(DeptDTO::getDeptName).orElse(null);
+        Integer deptId = Optional.ofNullable(deptDTO).map(DeptDTO::getDeptId).orElse(null);
+        Integer orderNum = Optional.ofNullable(deptDTO).map(DeptDTO::getOrderNum).orElse(null);
+        if (StringUtils.isEmpty(deptName)){
+            throw new RuntimeException("部门名称不能为null");
+        }
+        if (StringUtils.isEmpty(deptId)){
+            throw new RuntimeException("部门id不能为null");
+        }
+        if (StringUtils.isEmpty(orderNum)){
+            throw new RuntimeException("排序id不能为null");
+        }
         return deptService.updateDept(deptDTO);
     }
     @DeleteMapping("deleteDeptByDeptId")
     public int deleteDeptByDeptId(@RequestParam("deptId") Integer deptId){
         return deptService.deleteDeptByDeptId(deptId);
+    }
+    @PostMapping("deleteDeptsById")
+    public int deleteDeptsById(@RequestBody List<Integer> deptIds){
+        return deptService.deleteDeptsById(deptIds);
+    }
+    //getPage
+    @GetMapping("getPage")
+    public List<DeptDTO> getPage(@RequestParam(value = "deptName") String deptName, @RequestParam(value = "orderNum") Integer orderNum){
+        return deptService.getPage(deptName,orderNum);
     }
 }
 

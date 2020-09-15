@@ -3,6 +3,7 @@ package com.lzb.service;
 import com.lzb.dto.DeptDTO;
 import com.lzb.entity.Dept;
 import com.baomidou.mybatisplus.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +21,7 @@ public interface DeptService extends IService<Dept> {
     DeptDTO selectDeptByDeptId(Integer deptId);
     int updateDept(DeptDTO deptDTO);
     int deleteDeptByDeptId(Integer deptId);
+    int deleteDeptsById(List<Integer> deptIds);
+    List<DeptDTO> getPage(String deptName, Integer orderNum);
 
 }

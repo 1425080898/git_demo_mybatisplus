@@ -1,14 +1,17 @@
 package com.lzb.entity;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -20,7 +23,10 @@ import java.io.Serializable;
  */
 @TableName("tbl_dept")
 @Builder
-public class Dept extends Model<Dept> {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class Dept2 extends Model<Dept2> {
 
     private static final long serialVersionUID = 1L;
 

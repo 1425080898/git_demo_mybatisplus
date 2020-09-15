@@ -28,11 +28,29 @@
     <delete id="deleteDeptByDeptId">
         delete from tbl_dept where dept_id = #{deptId-}
     </delete>
+    <delete id="deleteDeptsById">
+        delete from tbl_dept
+        where dept_id in
+        <foreach collection="deptIds" item="deptId" open="(" separator="," close=")">
+            #{deptId}
+        </foreach>
+    </delete>
     <select id="selectDeptDTO" resultType="com.lzb.dto.DeptDTO" >
-        select tb.dept_id deptId,tb.dept_name deptName,tb.order_num orderNum tb from tbl_dept tb
+        select tb.dept_id deptId,tb.dept_name deptName,tb.order_num orderNum from tbl_dept tb
     </select>
     <select id="selectDeptByDeptId" resultType="com.lzb.dto.DeptDTO">
         select tb.dept_id deptId,tb.dept_name deptName,tb.order_num orderNum from tbl_dept tb where tb.dept_id=#{deptId}  limit 1
+    </select>
+    <select id="getPage" resultType="com.lzb.dto.DeptDTO">
+        select dept_id deptId,dept_name deptName,order_num orderNum from tbl_dept
+        <where>
+            <if test="deptName != null">
+                and dept_name like concat('%',#{deptName},'%')
+            </if>
+            <if test="orderNum != null">
+                and order_num =#{orderNum}
+            </if>
+        </where>
     </select>
 
 

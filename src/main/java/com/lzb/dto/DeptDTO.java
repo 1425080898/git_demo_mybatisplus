@@ -8,6 +8,7 @@ package com.lzb.dto;
  * @version:
  */
 
+
 public class DeptDTO {
 
     private Integer deptId;
@@ -36,5 +37,14 @@ public class DeptDTO {
 
     public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
+    }
+
+    @Override
+    public String toString() {
+        return "DeptDTO{" +
+                "deptId=" + deptId +
+                ", deptName='" + deptName + '\'' +
+                ", orderNum=" + orderNum +
+                '}';
     }
 }
